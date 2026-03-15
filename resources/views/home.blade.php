@@ -7,7 +7,7 @@
 <body>
     <div style="border: 3px solid black">
         <h2>Register</h2>
-        {{-- FOR ALL ERROR VALIDATIONS
+        {{-- FOR ALL ERROR VALIDATIONS --}}
         @if ($errors->any())
             <div>
                 <ul>
@@ -16,7 +16,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif --}}
+        @endif
         <form action="/register" method="POST">
             @csrf
             <input type="text" placeholder="name" name="name" value="{{ old('name') }}"/>
