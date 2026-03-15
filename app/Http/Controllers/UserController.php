@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,8 +24,13 @@ class UserController extends Controller
         //     'password.min' => 'Password should be at least 8 characters',
         // ]);
 
+        // FOR VALIDATION USING A REQUEST MODEL
         $incomingFields = $request->validated();
 
-        return "Hello from the controller sht";
+        $incomingFields['password'] = bcrypt($incomingFields['password']);
+        $user = User::create($incomingFields);
+        auth()->login($user);
+
+        return redirect('/');
     }
 }
