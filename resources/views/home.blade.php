@@ -7,11 +7,36 @@
 <body>
     <div style="border: 3px solid black">
         <h2>Register</h2>
+        {{-- FOR ALL ERROR VALIDATIONS
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif --}}
         <form action="/register" method="POST">
             @csrf
-            <input type="text" placeholder="name"/>
-            <input type="text" placeholder="email"/>
-            <input type="password" placeholder="password"/>
+            <input type="text" placeholder="name" name="name" value="{{ old('name') }}"/>
+            {{-- FOR EACH ERROR VALIDATION
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror --}}
+
+            <input type="text" placeholder="email" name="email" value="{{ old('email') }}"/>
+            {{-- FOR EACH ERROR VALIDATION
+            @error('email')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror --}}
+
+            <input type="password" placeholder="password" name="password"/>
+            {{-- FOR EACH ERROR VALIDATION
+            @error('password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror --}}
+
             <button type="submit">Register</button>
         </form>
     </div>
