@@ -29,4 +29,7 @@ Route::controller(UserController::class)->group(function() {
 
 Route::controller(PostController::class)->group(function() {
     Route::post('/create-post', 'createPost');
+    Route::get('/edit-post/{post}', 'showEditScreen');
+    Route::put('/edit-post/{post}', 'updatePost');
+    Route::delete('/delete-post/{post}', 'deletePost');
 });
