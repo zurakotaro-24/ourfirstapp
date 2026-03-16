@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,6 +31,25 @@ class UserController extends Controller
         $incomingFields['password'] = bcrypt($incomingFields['password']);
         $user = User::create($incomingFields);
         auth()->login($user);
+
+        return redirect('/');
+    }
+
+    public function logout() {
+        auth()->logout();
+        return redirect('/');
+    }
+
+    public function login(LoginRequest $request) {
+        $incomingFields = $request->validated();
+
+        // Automatically hashes the password when using attempt
+        if(auth()->attempt([
+            'name' => $incomingFields['loginname'], 
+            'password' => $incomingFields['loginpassword']
+        ])) {
+            $request->session()->regenerate();
+        }
 
         return redirect('/');
     }
